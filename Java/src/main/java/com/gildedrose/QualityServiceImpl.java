@@ -2,6 +2,9 @@ package com.gildedrose;
 
 public class QualityServiceImpl implements QualityService {
 
+    // TODO : Make the process item specific, both downgrade, aging and overdue
+    // The goal will be to have specific rules for different items and make it easier to add other items in the future
+
     public void updateQualityOfItem(Item item) {
         switch (item.name){
             case "Backstage passes to a TAFKAL80ETC concert":
