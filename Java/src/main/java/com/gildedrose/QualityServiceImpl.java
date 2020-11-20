@@ -20,17 +20,13 @@ public class QualityServiceImpl implements QualityService {
     }
 
     private void upgradeQualityIfNeeded(Item item) {
-        if (item.quality < 50) {
-            upgradeQuality(item);
-
-            if (isBackstageTicket(item)) {
-                if (item.sellIn < 11) {
-                    upgradeQuality(item);
-                }
-
-                if (item.sellIn < 6) {
-                    upgradeQuality(item);
-                }
+        upgradeQuality(item);
+        if (isBackstageTicket(item)) {
+            if (item.sellIn < 11) {
+                upgradeQuality(item);
+            }
+            if (item.sellIn < 6) {
+                upgradeQuality(item);
             }
         }
     }
