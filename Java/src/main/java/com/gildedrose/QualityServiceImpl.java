@@ -5,7 +5,7 @@ public class QualityServiceImpl implements QualityService {
     public void updateQualityOfItem(Item item) {
         if (isAgedBrieTicket(item)
                 || isBackstageTicket(item)) {
-            upgradeQualityIfNeeded(item);
+            updateQualityOfTicket(item);
         } else {
             downGradeQuality(item);
         }
@@ -21,7 +21,7 @@ public class QualityServiceImpl implements QualityService {
         }
     }
 
-    private void upgradeQualityIfNeeded(Item item) {
+    private void updateQualityOfTicket(Item item) {
         upgradeQuality(item);
         if (isBackstageTicket(item)) {
             if (item.sellIn < 11) {
