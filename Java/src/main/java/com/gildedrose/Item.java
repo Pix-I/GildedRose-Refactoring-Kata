@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+// public fields are evil..
 public class Item {
 
     public String name;
@@ -13,6 +14,7 @@ public class Item {
         this.sellIn = sellIn;
         this.quality = quality;
     }
+
 
    @Override
    public String toString() {
