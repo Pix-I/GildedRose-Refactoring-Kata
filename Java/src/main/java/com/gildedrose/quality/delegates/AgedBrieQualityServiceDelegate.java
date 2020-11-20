@@ -3,10 +3,6 @@ package com.gildedrose.quality.delegates;
 import com.gildedrose.Item;
 
 public class AgedBrieQualityServiceDelegate extends QualityServiceDelegate {
-    @Override
-    public void ageItem(Item i) {
-
-    }
 
     @Override
     public void updateQuality(Item item) {
@@ -21,6 +17,6 @@ public class AgedBrieQualityServiceDelegate extends QualityServiceDelegate {
 
     @Override
     public void updateQualityOfOverdueItem(Item i) {
-
+        i.quality++;
     }
 }
