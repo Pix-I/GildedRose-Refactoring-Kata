@@ -3,26 +3,26 @@ package com.gildedrose;
 public class QualityServiceImpl implements QualityService {
 
     public void updateQualityOfItem(Item item) {
-        if (isABackstageTicket(item)
-                || item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                    if (item.quality < 50) {
-                        upgradeQuality(item);
+        if (isAgedBrieTicket(item)
+                || isBackstageTicket(item)) {
+            if (item.quality < 50) {
+                upgradeQuality(item);
 
-                        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                            if (item.sellIn < 11) {
-                                if (item.quality < 50) {
-                                    upgradeQuality(item);
-                                }
-                            }
-
-                            if (item.sellIn < 6) {
-                                if (item.quality < 50) {
-                                    upgradeQuality(item);
-                                }
-                            }
+                if (isBackstageTicket(item)) {
+                    if (item.sellIn < 11) {
+                        if (item.quality < 50) {
+                            upgradeQuality(item);
                         }
                     }
-                } else {
+
+                    if (item.sellIn < 6) {
+                        if (item.quality < 50) {
+                            upgradeQuality(item);
+                        }
+                    }
+                }
+            }
+        } else {
             if (item.quality > 0) {
                 if (isNotALegendary(item)) {
                     downGradeQuality(item);
@@ -35,25 +35,27 @@ public class QualityServiceImpl implements QualityService {
         }
 
         if (item.sellIn < 0) {
-            if (isABackstageTicket(item)) {
+            if (isAgedBrieTicket(item)) {
                 if (item.quality < 50) {
                     upgradeQuality(item);
                 }
             } else {
-                if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                    if (item.quality > 0) {
-                        if (isNotALegendary(item)) {
-                            downGradeQuality(item);
-                        }
-                    }
+                if (isBackstageTicket(item)) {
+                    item.quality = 0;
                 } else {
-                    item.quality = item.quality - item.quality;
+                    if (item.quality > 0 && isNotALegendary(item)) {
+                        downGradeQuality(item);
+                    }
                 }
             }
         }
     }
 
-    private boolean isABackstageTicket(Item item) {
+    private boolean isBackstageTicket(Item item) {
+        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
+    }
+
+    private boolean isAgedBrieTicket(Item item) {
         return item.name.equals("Aged Brie");
     }
 
