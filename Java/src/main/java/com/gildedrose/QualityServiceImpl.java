@@ -7,15 +7,17 @@ public class QualityServiceImpl implements QualityService {
                 || isBackstageTicket(item)) {
             upgradeQualityIfNeeded(item);
         } else {
-            if (isNotALegendary(item)) {
-                downGradeQuality(item);
-            }
+            downGradeQuality(item);
         }
-        if (isNotALegendary(item)) {
-            item.sellIn = item.sellIn - 1;
-        }
+        ageItem(item);
         if (item.sellIn < 0) {
             updateQualityOfOverdueItem(item);
+        }
+    }
+
+    private void ageItem(Item item) {
+        if (isNotALegendary(item)) {
+            item.sellIn = item.sellIn - 1;
         }
     }
 
@@ -36,13 +38,15 @@ public class QualityServiceImpl implements QualityService {
             upgradeQuality(item);
         } else {
             if (isBackstageTicket(item)) {
-                item.quality = 0;
+                makeItemWorthless(item);
             } else {
-                if (isNotALegendary(item)) {
-                    downGradeQuality(item);
-                }
+                downGradeQuality(item);
             }
         }
+    }
+
+    private void makeItemWorthless(Item item) {
+        item.quality = 0;
     }
 
     private boolean isBackstageTicket(Item item) {
@@ -64,8 +68,9 @@ public class QualityServiceImpl implements QualityService {
     }
 
     private void downGradeQuality(Item item) {
-        if (item.quality > 0) {
+        if (isNotALegendary(item) && item.quality > 0) {
             item.quality--;
+
         }
     }
 }
