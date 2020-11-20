@@ -3,11 +3,13 @@ package com.gildedrose;
 public class QualityServiceImpl implements QualityService {
 
     public void updateQualityOfItem(Item item) {
-        if (isAgedBrieTicket(item)
-                || isBackstageTicket(item)) {
-            updateQualityOfTicket(item);
-        } else {
-            downGradeQuality(item);
+        switch (item.name){
+            case "Backstage passes to a TAFKAL80ETC concert":
+            case "Aged Brie":
+                updateQualityOfTicket(item);
+                break;
+            default:
+                downGradeQuality(item);
         }
         ageItem(item);
         if (item.sellIn < 0) {
