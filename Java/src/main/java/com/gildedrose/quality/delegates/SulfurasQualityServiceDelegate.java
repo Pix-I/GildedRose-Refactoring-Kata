@@ -1,6 +1,8 @@
-package com.gildedrose;
+package com.gildedrose.quality.delegates;
 
-public class SulfurasQualityServiceDelegate implements QualityServiceDelegate {
+import com.gildedrose.Item;
+
+public class SulfurasQualityServiceDelegate extends QualityServiceDelegate {
 
     // Legendary items do not age
     @Override

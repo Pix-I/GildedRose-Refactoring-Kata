@@ -1,6 +1,9 @@
-package com.gildedrose;
+package com.gildedrose.quality.delegates;
 
-public class AgedBrieQualityServiceDelegate implements QualityServiceDelegate {
+import com.gildedrose.Item;
+
+public class BackstageTicketQualityServiceDelegate extends QualityServiceDelegate {
+
     @Override
     public void ageItem(Item i) {
 

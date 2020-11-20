@@ -1,5 +1,7 @@
-package com.gildedrose;
+package com.gildedrose.quality;
 
+import com.gildedrose.Item;
+import com.gildedrose.quality.delegates.SulfurasQualityServiceDelegate;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

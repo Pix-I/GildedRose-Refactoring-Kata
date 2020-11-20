@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import com.gildedrose.quality.QualityService;
+import com.gildedrose.quality.QualityServiceImpl;
+
 class GildedRose {
     private final Item[] items;
 
