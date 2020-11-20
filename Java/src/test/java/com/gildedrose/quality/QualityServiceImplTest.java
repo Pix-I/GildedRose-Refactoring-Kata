@@ -37,12 +37,12 @@ class QualityServiceImplTest {
     void updateQualityOfItem_agedBrie() {
         Item item = new Item("Aged Brie", 0, 10);
         qualityService.updateQualityOfItem(item);
-        assertEquals(12,item.quality);
+        assertEquals(14,item.quality);
     }
 
     @Test
     void updateQualityOfItem_agedBrie_normal() {
-        Item item = new Item("Aged Brie", 10, 10);
+        Item item = new Item("Aged Brie", 25, 10);
         qualityService.updateQualityOfItem(item);
         assertEquals(11,item.quality);
     }
