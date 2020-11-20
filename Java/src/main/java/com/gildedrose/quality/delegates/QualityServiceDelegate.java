@@ -9,9 +9,7 @@ public class QualityServiceDelegate {
     }
 
     public void updateQuality(Item i) {
-        if (i.quality > 0) {
-            i.quality--;
-        }
+        downGradeQuality(i);
     }
 
     public void updateQualityOfOverdueItem(Item i) {

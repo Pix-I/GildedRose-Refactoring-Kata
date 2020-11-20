@@ -1,4 +1,4 @@
-package com.gildedrose.quality;
+package com.gildedrose.quality.delegates;
 
 import com.gildedrose.Item;
 import com.gildedrose.quality.delegates.SulfurasQualityServiceDelegate;
