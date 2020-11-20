@@ -36,4 +36,12 @@ class AgedBrieQualityServiceDelegateTest {
         assertEquals(1,agedBrie.quality);
     }
 
+    // This still seems weird, the original code wanted to upgrade the quality by 1
+    @Test
+    void updateQualityOfOverdueItem_maxed() {
+        Item agedBrie = new Item("Aged Brie", 0, 50);
+        delegate.updateQualityOfOverdueItem(agedBrie);
+        assertEquals(50,agedBrie.quality);
+    }
+
 }

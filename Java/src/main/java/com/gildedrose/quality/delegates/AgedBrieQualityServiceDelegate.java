@@ -17,6 +17,6 @@ public class AgedBrieQualityServiceDelegate extends QualityServiceDelegate {
 
     @Override
     public void updateQualityOfOverdueItem(Item i) {
-        i.quality++;
+        upgradeQuality(i);
     }
 }
