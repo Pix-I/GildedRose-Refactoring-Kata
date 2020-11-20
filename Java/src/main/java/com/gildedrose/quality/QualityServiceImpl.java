@@ -77,7 +77,6 @@ public class QualityServiceImpl implements QualityService {
     private void downGradeQuality(Item item) {
         if (isNotALegendary(item) && item.quality > 0) {
             item.quality--;
-
         }
     }
 }

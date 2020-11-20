@@ -9,11 +9,13 @@ public class QualityServiceDelegate {
     }
 
     public void updateQuality(Item i) {
-
+        if (i.quality > 0) {
+            i.quality--;
+        }
     }
 
     public void updateQualityOfOverdueItem(Item i) {
-
+        updateQuality(i);
     }
 
     protected void upgradeQuality(Item item) {
