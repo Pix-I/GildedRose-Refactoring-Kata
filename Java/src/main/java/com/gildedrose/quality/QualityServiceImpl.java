@@ -26,15 +26,12 @@ public class QualityServiceImpl implements QualityService {
         this.delegateMap = new HashMap<>();
         delegateMap.put("Backstage passes to a TAFKAL80ETC concert", new BackstageTicketQualityServiceDelegate());
         delegateMap.put("Aged Brie", new AgedBrieQualityServiceDelegate());
-        delegateMap.put("Conjured Mana Cake" , new ConjuredQualityServiceDelegate());
+        delegateMap.put("Conjured Mana Cake", new ConjuredQualityServiceDelegate());
         delegateMap.put("Sulfuras, Hand of Ragnaros", new SulfurasQualityServiceDelegate());
     }
 
     public void updateQualityOfItem(Item item) {
-        QualityServiceDelegate activeDelegate = defaultDelegate;
-        if (delegateMap.containsKey(item.name)) {
-            activeDelegate = delegateMap.get(item.name);
-        }
+        QualityServiceDelegate activeDelegate = delegateMap.getOrDefault(item.name, defaultDelegate);
         activeDelegate.updateQuality(item);
         activeDelegate.ageItem(item);
         if (item.sellIn < 0) {
