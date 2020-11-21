@@ -13,6 +13,9 @@ class QualityServiceDelegateTest {
 
     @Test
     void ageItem() {
+        Item item = new Item("Aged Brie", 10, 4);
+        qualityService.ageItem(item);
+        assertEquals(9,item.sellIn);
     }
 
     @Test

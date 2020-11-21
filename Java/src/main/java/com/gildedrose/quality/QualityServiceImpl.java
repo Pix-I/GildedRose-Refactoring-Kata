@@ -3,6 +3,7 @@ package com.gildedrose.quality;
 import com.gildedrose.Item;
 import com.gildedrose.quality.delegates.AgedBrieQualityServiceDelegate;
 import com.gildedrose.quality.delegates.BackstageTicketQualityServiceDelegate;
+import com.gildedrose.quality.delegates.ConjuredQualityServiceDelegate;
 import com.gildedrose.quality.delegates.QualityServiceDelegate;
 import com.gildedrose.quality.delegates.SulfurasQualityServiceDelegate;
 
@@ -17,10 +18,15 @@ public class QualityServiceImpl implements QualityService {
     private Map<String, QualityServiceDelegate> delegateMap;
     private QualityServiceDelegate defaultDelegate = new QualityServiceDelegate();
 
+    // Another way to do this would be a switch statement or an if-else condition
+    // I choose this way because it's actually a bit less verbose and faster to write
+    // The next step would be to add a "configuration" class that adds the delegates dynamically.
+    //
     public QualityServiceImpl() {
         this.delegateMap = new HashMap<>();
         delegateMap.put("Backstage passes to a TAFKAL80ETC concert", new BackstageTicketQualityServiceDelegate());
         delegateMap.put("Aged Brie", new AgedBrieQualityServiceDelegate());
+        delegateMap.put("Conjured Mana Cake" , new ConjuredQualityServiceDelegate());
         delegateMap.put("Sulfuras, Hand of Ragnaros", new SulfurasQualityServiceDelegate());
     }
 
