@@ -3,60 +3,53 @@ package com.gildedrose.quality;
 import com.gildedrose.Item;
 import com.gildedrose.quality.QualityService;
 import com.gildedrose.quality.QualityServiceImpl;
+import com.gildedrose.quality.delegates.AgedBrieQualityServiceDelegate;
+import com.gildedrose.quality.delegates.BackstageTicketQualityServiceDelegate;
+import com.gildedrose.quality.delegates.ConjuredQualityServiceDelegate;
+import com.gildedrose.quality.delegates.QualityServiceDelegate;
+import com.gildedrose.quality.delegates.SulfurasQualityServiceDelegate;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class QualityServiceImplTest {
 
-    private QualityService qualityService = new QualityServiceImpl();
+    private QualityService qualityService;
 
     @Test
-    void updateQualityOfItem_neverNegative() {
-        Item item = new Item("foo", 0, 0);
-        qualityService.updateQualityOfItem(item);
-        assertEquals(0,item.quality);
-    }
-
-    @Test
-    void updateQualityOfItem_normalTempo() {
-        Item item = new Item("foo", 10, 10);
+    void updateQualityOfItem_onlyDefault() {
+        HashMap<String, QualityServiceDelegate> delegateMap = new HashMap<>();
+        qualityService = new QualityServiceImpl(delegateMap);
+        Item item = new Item("foo", 9, 10);
         qualityService.updateQualityOfItem(item);
         assertEquals(9,item.quality);
+        assertEquals(8,item.sellIn);
     }
 
     @Test
-    void updateQualityOfItem_pastDueDateTempo() {
-        Item item = new Item("foo", 0, 10);
+    void updateQualityOfItem_withADelegateThatNeverAges() {
+        HashMap<String, QualityServiceDelegate> delegateMap = new HashMap<>();
+        delegateMap.put("foo",new SulfurasQualityServiceDelegate());
+        qualityService = new QualityServiceImpl(delegateMap);
+        Item item = new Item("foo", 9, 10);
         qualityService.updateQualityOfItem(item);
-        assertEquals(8,item.quality);
+        assertEquals(10,item.quality);
+        assertEquals(9,item.sellIn);
+    }
+    @Test
+    void updateQualityOfItem_fallBackOnDefaultDelegate() {
+        HashMap<String, QualityServiceDelegate> delegateMap = new HashMap<>();
+        delegateMap.put("foo",new SulfurasQualityServiceDelegate());
+        qualityService = new QualityServiceImpl(delegateMap);
+        Item item = new Item("notFoo", 9, 10);
+        qualityService.updateQualityOfItem(item);
+        assertEquals(9,item.quality);
+        assertEquals(8,item.sellIn);
     }
 
-    // Does it make sense for agedBrie to get quality twice as fast once it's past the sellIn date?
-    @Test
-    void updateQualityOfItem_agedBrie() {
-        Item item = new Item("Aged Brie", 0, 10);
-        qualityService.updateQualityOfItem(item);
-        assertEquals(14,item.quality);
-    }
 
-    @Test
-    void updateQualityOfItem_agedBrie_normal() {
-        Item item = new Item("Aged Brie", 25, 10);
-        qualityService.updateQualityOfItem(item);
-        assertEquals(11,item.quality);
-    }
-
-    @Test
-    void updateQualityOfItem_agedBrie_maxedOut() {
-        Item item = new Item("Aged Brie", 0, 49);
-        qualityService.updateQualityOfItem(item);
-        assertEquals(50,item.quality);
-    }
-    @Test
-    void updateQualityOfItem_sulfuras() {
-        Item item = new Item("Sulfuras, Hand of Ragnaros", 0, 80);
-        qualityService.updateQualityOfItem(item);
-        assertEquals(80,item.quality);
-    }
 }
